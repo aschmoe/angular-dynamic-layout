@@ -44,6 +44,10 @@
       elements = $document[0].querySelectorAll(
         '.dynamic-layout-item-parent:not(.ng-leave)'
       );
+      // Simple rounding
+      function round(x, digits){
+        return parseFloat(x.toFixed(digits));
+      }
       items = [];
       for (var i = 0; i < elements.length; ++i) {
         // Note: we need to get the children element width because that's
@@ -59,6 +63,8 @@
           height = rect.top - rect.bottom;
         }
 
+        // Fix for IE being weird with a long rounding float
+        width = round(width, 3);
         items.push({
           height: height +
             parseFloat($window.getComputedStyle(elements[i]).marginTop),
@@ -70,7 +76,6 @@
       }
       return items;
     }
-
     /*
      * Apply positions to the DOM with an animation
      * @return: the promise of the position animations being completed
