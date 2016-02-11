@@ -135,6 +135,10 @@
         }
       }
 
+      // Set container height
+      var columnHeights = getColumnsHeights(columns);
+      angular.element('[dynamic-layout]').css('height', Math.max.apply(null, columnHeights));
+
       // For some reason we need to launch the new animations at the next
       // digest
       $timeout(function() {
@@ -280,8 +284,6 @@
         items[i].x = itemColumnsAndPosition.position.x;
         items[i].y = itemColumnsAndPosition.position.y;
       }
-
-      setDynamicLayoutHeight(columns);
     }
 
     /*
@@ -299,7 +301,7 @@
         }
       }
 
-      angular.element('[dynamic-layout]').css('height', Math.max.apply(null, dlHeight));
+      
     }
 
     /*
